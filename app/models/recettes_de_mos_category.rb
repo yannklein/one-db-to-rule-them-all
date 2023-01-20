@@ -1,0 +1,2 @@
+class RecettesDeMosCategory < ApplicationRecord
+end

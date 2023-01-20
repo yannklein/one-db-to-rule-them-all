@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_20_064902) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_20_085714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,55 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_064902) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "recettes_de_mos_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recettes_de_mos_countries", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recettes_de_mos_recipes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "recettes_de_mos_country_id", null: false
+    t.bigint "recettes_de_mos_category_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ingredient", default: [], array: true
+    t.integer "prep_time"
+    t.integer "cook_time"
+    t.string "prep_step", default: [], array: true
+    t.integer "guests_amount"
+    t.index ["recettes_de_mos_category_id"], name: "index_recettes_de_mos_recipes_on_recettes_de_mos_category_id"
+    t.index ["recettes_de_mos_country_id"], name: "index_recettes_de_mos_recipes_on_recettes_de_mos_country_id"
+    t.index ["user_id"], name: "index_recettes_de_mos_recipes_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "location"
+    t.float "latitude"
+    t.float "longitude"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   create_table "watch_with_style_bookmarks", force: :cascade do |t|
     t.string "comment"
     t.bigint "watch_with_style_movie_id", null: false
@@ -69,6 +118,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_064902) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "recettes_de_mos_recipes", "recettes_de_mos_categories"
+  add_foreign_key "recettes_de_mos_recipes", "recettes_de_mos_countries"
+  add_foreign_key "recettes_de_mos_recipes", "users"
   add_foreign_key "watch_with_style_bookmarks", "watch_with_style_lists"
   add_foreign_key "watch_with_style_bookmarks", "watch_with_style_movies"
 end

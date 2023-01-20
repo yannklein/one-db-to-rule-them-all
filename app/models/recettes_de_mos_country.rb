@@ -1,0 +1,2 @@
+class RecettesDeMosCountry < ApplicationRecord
+end
