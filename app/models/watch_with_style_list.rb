@@ -1,0 +1,2 @@
+class WatchWithStyleList < ApplicationRecord
+end
