@@ -1,4 +1,4 @@
 class WatchWithStyleBookmark < ApplicationRecord
-  belongs_to :movie
-  belongs_to :list
+  belongs_to :watch_with_style_movie
+  belongs_to :watch_with_style_list
 end
