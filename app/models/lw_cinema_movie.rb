@@ -1,0 +1,2 @@
+class LwCinemaMovie < ApplicationRecord
+end

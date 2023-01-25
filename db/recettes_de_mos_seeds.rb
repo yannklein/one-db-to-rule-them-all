@@ -2,14 +2,6 @@ require 'faker'
 require "open-uri"
 
 def recettes_de_mos_seeding
-  # Destroy former seeds
-  puts "Destroy all seeds..."
-  RecettesDeMosRecipe.destroy_all
-  RecettesDeMosCountry.destroy_all
-  RecettesDeMosCategory.destroy_all
-  User.destroy_all
-  puts "destroyed!"
-
   # Create users
   puts "User creation..."
   file = URI.open('https://avatars2.githubusercontent.com/u/26819547?s=400&u=ae79d8825ad1127723641cbf32a9a7e2ec221e7f&v=4')
