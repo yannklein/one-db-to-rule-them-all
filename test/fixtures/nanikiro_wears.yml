@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  color: MyString
+  nanikiro_closet: one
+  wear_type: 1
+  season: 1
+
+two:
+  color: MyString
+  nanikiro_closet: two
+  wear_type: 1
+  season: 1

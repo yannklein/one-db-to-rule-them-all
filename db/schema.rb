@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_25_061636) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_25_110027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_061636) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "nanikiro_closets", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_nanikiro_closets_on_user_id"
+  end
+
+  create_table "nanikiro_todays_items", force: :cascade do |t|
+    t.date "weared_on"
+    t.bigint "nanikiro_wear_id", null: false
+    t.bigint "nanikiro_closet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nanikiro_closet_id"], name: "index_nanikiro_todays_items_on_nanikiro_closet_id"
+    t.index ["nanikiro_wear_id"], name: "index_nanikiro_todays_items_on_nanikiro_wear_id"
+  end
+
+  create_table "nanikiro_wears", force: :cascade do |t|
+    t.string "color"
+    t.bigint "nanikiro_closet_id", null: false
+    t.integer "wear_type"
+    t.integer "season"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nanikiro_closet_id"], name: "index_nanikiro_wears_on_nanikiro_closet_id"
+  end
+
   create_table "recettes_de_mos_categories", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -105,6 +133,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_061636) do
     t.string "location"
     t.float "latitude"
     t.float "longitude"
+    t.string "admin"
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -137,6 +167,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_061636) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "lw_cinema_movies", "lw_cinema_project_categories"
+  add_foreign_key "nanikiro_closets", "users"
+  add_foreign_key "nanikiro_todays_items", "nanikiro_closets"
+  add_foreign_key "nanikiro_todays_items", "nanikiro_wears"
+  add_foreign_key "nanikiro_wears", "nanikiro_closets"
   add_foreign_key "recettes_de_mos_recipes", "recettes_de_mos_categories"
   add_foreign_key "recettes_de_mos_recipes", "recettes_de_mos_countries"
   add_foreign_key "recettes_de_mos_recipes", "users"
