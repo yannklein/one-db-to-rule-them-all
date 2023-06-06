@@ -1,0 +1,2 @@
+class HoloboMarker < ApplicationRecord
+end
