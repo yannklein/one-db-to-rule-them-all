@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_25_110027) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_022928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,89 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_110027) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "career_resources", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "url"
+    t.bigint "career_step_id", null: false
+    t.string "rest_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["career_step_id"], name: "index_career_resources_on_career_step_id"
+  end
+
+  create_table "career_steps", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "ste_number"
+    t.string "video"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "career_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.bigint "step_id"
+    t.string "name"
+    t.string "batch"
+    t.string "github_account"
+    t.boolean "completed", default: false
+    t.boolean "admin", default: false
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_career_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_career_users_on_reset_password_token", unique: true
+    t.index ["step_id"], name: "index_career_users_on_step_id"
+  end
+
+  create_table "holobo_holograms", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "holobo_user_id", null: false
+    t.string "video"
+    t.string "background"
+    t.string "depth_img"
+    t.string "marker_pattern"
+    t.string "qr_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["holobo_user_id"], name: "index_holobo_holograms_on_holobo_user_id"
+  end
+
+  create_table "holobo_markers", force: :cascade do |t|
+    t.string "qrcode"
+    t.string "pattern"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "holobo_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "nickname"
+    t.string "bio"
+    t.string "picture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_holobo_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_holobo_users_on_reset_password_token", unique: true
   end
 
   create_table "lw_cinema_movies", force: :cascade do |t|
@@ -166,6 +249,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_25_110027) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "career_resources", "career_steps"
+  add_foreign_key "holobo_holograms", "holobo_users"
   add_foreign_key "lw_cinema_movies", "lw_cinema_project_categories"
   add_foreign_key "nanikiro_closets", "users"
   add_foreign_key "nanikiro_todays_items", "nanikiro_closets"

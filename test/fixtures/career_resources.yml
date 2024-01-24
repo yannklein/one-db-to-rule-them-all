@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  url: MyString
+  career_step: one
+  rest_type: MyString
+
+two:
+  name: MyString
+  description: MyString
+  url: MyString
+  career_step: two
+  rest_type: MyString

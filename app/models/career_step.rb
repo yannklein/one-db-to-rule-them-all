@@ -1,0 +1,2 @@
+class CareerStep < ApplicationRecord
+end
