@@ -5,7 +5,7 @@ class CreateCareerResources < ActiveRecord::Migration[7.0]
       t.string :description
       t.string :url
       t.references :career_step, null: false, foreign_key: true
-      t.string :rest_type
+      t.string :res_type
 
       t.timestamps
     end

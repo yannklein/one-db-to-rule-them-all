@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_022928) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_022928) do
     t.string "description"
     t.string "url"
     t.bigint "career_step_id", null: false
-    t.string "rest_type"
+    t.string "res_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["career_step_id"], name: "index_career_resources_on_career_step_id"
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_022928) do
   create_table "career_steps", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.integer "ste_number"
+    t.integer "step_number"
     t.string "video"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,24 +68,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_022928) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.bigint "step_id"
+    t.bigint "career_step_id"
     t.string "name"
     t.string "batch"
     t.string "github_account"
-    t.boolean "completed", default: false
-    t.boolean "admin", default: false
+    t.boolean "completed"
+    t.boolean "admin"
     t.string "provider"
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["career_step_id"], name: "index_career_users_on_career_step_id"
     t.index ["email"], name: "index_career_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_career_users_on_reset_password_token", unique: true
-    t.index ["step_id"], name: "index_career_users_on_step_id"
   end
 
   create_table "holobo_holograms", force: :cascade do |t|

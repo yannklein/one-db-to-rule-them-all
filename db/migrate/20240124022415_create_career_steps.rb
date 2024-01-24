@@ -3,7 +3,7 @@ class CreateCareerSteps < ActiveRecord::Migration[7.0]
     create_table :career_steps do |t|
       t.string :title
       t.string :description
-      t.integer :ste_number
+      t.integer :step_number
       t.string :video
 
       t.timestamps

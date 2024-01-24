@@ -15,11 +15,11 @@ class DeviseCreateCareerUsers < ActiveRecord::Migration[7.0]
       t.datetime :remember_created_at
 
       ## Trackable
-      t.integer  :sign_in_count, default: 0, null: false
-      t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
-      t.string   :current_sign_in_ip
-      t.string   :last_sign_in_ip
+      # t.integer  :sign_in_count, default: 0, null: false
+      # t.datetime :current_sign_in_at
+      # t.datetime :last_sign_in_at
+      # t.string   :current_sign_in_ip
+      # t.string   :last_sign_in_ip
 
       ## Confirmable
       # t.string   :confirmation_token
@@ -32,12 +32,12 @@ class DeviseCreateCareerUsers < ActiveRecord::Migration[7.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.references :step
+      t.references :career_step
       t.string :name
       t.string :batch
       t.string :github_account
-      t.boolean :completed, default: false
-      t.boolean :admin, default: false
+      t.boolean :completed
+      t.boolean :admin
       t.string :provider
       t.string :uid
 
