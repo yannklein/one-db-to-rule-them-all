@@ -39,10 +39,10 @@ def nanikiro_seeding
   wear.photo.attach(io: file, filename: 'image.jpg', content_type: 'image/jpg')
   wear.save
 
-  file = URI.open('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fen.yournewstyle.pl%2Ffiles%2Fclothes%2Fbig%2Fce54b4170a44d94bbd451ad8f30363c1.jpg')
-  wear = NanikiroWear.create!(nanikiro_closet: wishlist, wear_type: "jeans", color: "blue")
-  wear.photo.attach(io: file, filename: 'image.jpg', content_type: 'image/jpg')
-  wear.save
+  # file = URI.open('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fen.yournewstyle.pl%2Ffiles%2Fclothes%2Fbig%2Fce54b4170a44d94bbd451ad8f30363c1.jpg')
+  # wear = NanikiroWear.create!(nanikiro_closet: wishlist, wear_type: "jeans", color: "blue")
+  # wear.photo.attach(io: file, filename: 'image.jpg', content_type: 'image/jpg')
+  # wear.save
 
   file = URI.open('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi5.walmartimages.com%2Fasr%2Fe79f1f08-3c39-4d90-aa23-cc20c5d9dd51_1.bb3d234fbe35466af3bf19dbecf4841e.jpeg')
   wear = NanikiroWear.create!(nanikiro_closet: wishlist, wear_type: "pants", color: "brown")

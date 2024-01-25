@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_082121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,7 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.bigint "career_step_id"
     t.string "name"
     t.string "batch"
     t.string "github_account"
@@ -83,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "career_step_id", null: false
     t.index ["career_step_id"], name: "index_career_users_on_career_step_id"
     t.index ["email"], name: "index_career_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_career_users_on_reset_password_token", unique: true
@@ -209,6 +209,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at", precision: nil
     t.datetime "remember_created_at", precision: nil
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "first_name"
@@ -218,8 +230,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
     t.float "longitude"
     t.string "admin"
     t.string "name"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   create_table "watch_with_style_bookmarks", force: :cascade do |t|
@@ -250,6 +264,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_050117) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "career_resources", "career_steps"
+  add_foreign_key "career_users", "career_steps"
   add_foreign_key "holobo_holograms", "holobo_users"
   add_foreign_key "lw_cinema_movies", "lw_cinema_project_categories"
   add_foreign_key "nanikiro_closets", "users"
